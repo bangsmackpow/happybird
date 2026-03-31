@@ -1,0 +1,109 @@
+[gd_scene load_steps=5 format=3 uid="uid://cgame1234567"]
+
+[ext_resource type="Script" path="res://scripts/game.gd" id="1_game"]
+[ext_resource type="PackedScene" uid="uid://cbird1234567" path="res://scenes/Bird.tscn" id="2_bird"]
+[ext_resource type="PackedScene" uid="uid://cpipem123456" path="res://scenes/PipeManager.tscn" id="3_pipemanager"]
+[ext_resource type="PackedScene" uid="uid://cground12345" path="res://scenes/Ground.tscn" id="4_ground"]
+
+[node name="Game" type="Node2D"]
+script = ExtResource("1_game")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 540.0
+offset_bottom = 960.0
+color = Color(0.4, 0.75, 0.95, 1)
+
+[node name="Bird" parent="." instance=ExtResource("2_bird")]
+position = Vector2(150, 400)
+
+[node name="PipeManager" parent="." instance=ExtResource("3_pipemanager")]
+
+[node name="Ground" parent="." instance=ExtResource("4_ground")]
+
+[node name="HUD" type="CanvasLayer" parent="."]
+layer = 10
+
+[node name="ScoreLabel" type="Label" parent="HUD"]
+offset_left = 220.0
+offset_top = 60.0
+offset_right = 320.0
+offset_bottom = 140.0
+theme_override_font_sizes/font_size = 72
+text = "0"
+horizontal_alignment = 1
+
+[node name="PauseButton" type="Button" parent="HUD"]
+offset_left = 460.0
+offset_top = 10.0
+offset_right = 530.0
+offset_bottom = 60.0
+text = "||"
+
+[node name="GameOverScreen" type="CanvasLayer" parent="."]
+layer = 20
+
+[node name="Background" type="ColorRect" parent="GameOverScreen"]
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 540.0
+offset_bottom = 960.0
+color = Color(0, 0, 0, 0.6)
+
+[node name="Panel" type="Panel" parent="GameOverScreen"]
+offset_left = 70.0
+offset_top = 250.0
+offset_right = 470.0
+offset_bottom = 680.0
+
+[node name="Title" type="Label" parent="GameOverScreen/Panel"]
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 380.0
+offset_bottom = 80.0
+theme_override_font_sizes/font_size = 48
+text = "Game Over"
+horizontal_alignment = 1
+
+[node name="ScoreLabel" type="Label" parent="GameOverScreen/Panel"]
+offset_left = 40.0
+offset_top = 100.0
+offset_right = 360.0
+offset_bottom = 150.0
+theme_override_font_sizes/font_size = 36
+text = "Score: 0"
+horizontal_alignment = 1
+
+[node name="BestLabel" type="Label" parent="GameOverScreen/Panel"]
+offset_left = 40.0
+offset_top = 160.0
+offset_right = 360.0
+offset_bottom = 210.0
+theme_override_font_sizes/font_size = 32
+text = "Best: 0"
+horizontal_alignment = 1
+
+[node name="RetryButton" type="Button" parent="GameOverScreen/Panel"]
+offset_left = 40.0
+offset_top = 240.0
+offset_right = 360.0
+offset_bottom = 300.0
+theme_override_font_sizes/font_size = 32
+text = "Retry"
+
+[node name="LeaderboardButton" type="Button" parent="GameOverScreen/Panel"]
+offset_left = 40.0
+offset_top = 310.0
+offset_right = 360.0
+offset_bottom = 370.0
+theme_override_font_sizes/font_size = 28
+text = "Leaderboard"
+
+[node name="HomeButton" type="Button" parent="GameOverScreen/Panel"]
+offset_left = 40.0
+offset_top = 380.0
+offset_right = 360.0
+offset_bottom = 420.0
+theme_override_font_sizes/font_size = 24
+text = "Home"

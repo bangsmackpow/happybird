@@ -1,0 +1,63 @@
+name: Build Android APK
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-apk:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
+        with:
+          packages: platforms;android-34 build-tools;34.0.0 cmdline-tools;latest
+
+      - name: Install Android Build Template
+        run: |
+          mkdir -p android/build
+          cp -r /opt/android-sdk/cmdline-tools android/ 2>/dev/null || true
+          echo "sdk.dir=$ANDROID_HOME" > android/build/local.properties
+
+      - name: Download Godot Export Templates
+        run: |
+          GODOT_VERSION=4.2.2
+          wget -q https://github.com/godotengine/godot/releases/download/${GODOT_VERSION}-stable/Godot_v${GODOT_VERSION}-stable_linux.x86_64.zip
+          unzip -o Godot_v${GODOT_VERSION}-stable_linux.x86_64.zip
+          chmod +x Godot_v${GODOT_VERSION}-stable_linux.x86_64
+          mkdir -p ~/.local/share/godot/export_templates/${GODOT_VERSION}.stable
+          wget -q https://github.com/godotengine/godot/releases/download/${GODOT_VERSION}-stable/Godot_v${GODOT_VERSION}-stable_export_templates.tpz
+          unzip -o Godot_v${GODOT_VERSION}-stable_export_templates.tpz
+          mv templates/* ~/.local/share/godot/export_templates/${GODOT_VERSION}.stable/
+
+      - name: Generate Android Build Template
+        run: |
+          ./Godot_v4.2.2-stable_linux.x86_64 --headless --path . --build-sources android/build
+        continue-on-error: true
+
+      - name: Export APK
+        run: |
+          ./Godot_v4.2.2-stable_linux.x86_64 --headless --path . --export-debug Android
+        continue-on-error: true
+
+      - name: Upload APK artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: FlappyFamily
+          path: |
+            *.apk
+            android/build/outputs/apk/**/*.apk
+          if-no-files-found: warn

@@ -1,0 +1,63 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/player_select_screen.gd" id="1_select"]
+
+[node name="PlayerSelectScreen" type="Control"]
+script = ExtResource("1_select")
+
+[node name="Title" type="Label" parent="."]
+offset_left = 70.0
+offset_top = 60.0
+offset_right = 470.0
+offset_bottom = 140.0
+theme_override_font_sizes/font_size = 52
+text = "Flappy Family"
+horizontal_alignment = 1
+
+[node name="Subtitle" type="Label" parent="."]
+offset_left = 100.0
+offset_top = 140.0
+offset_right = 440.0
+offset_bottom = 180.0
+theme_override_font_sizes/font_size = 24
+text = "Who's playing?"
+horizontal_alignment = 1
+
+[node name="Panel" type="Panel" parent="."]
+offset_left = 50.0
+offset_top = 200.0
+offset_right = 490.0
+offset_bottom = 700.0
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Panel"]
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 390.0
+offset_bottom = 420.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/ScrollContainer"]
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 380.0
+offset_bottom = 410.0
+
+[node name="NewPlayerContainer" type="HBoxContainer" parent="Panel"]
+offset_left = 10.0
+offset_top = 440.0
+offset_right = 390.0
+offset_bottom = 490.0
+
+[node name="LineEdit" type="LineEdit" parent="Panel/NewPlayerContainer"]
+size_flags_horizontal = 3
+placeholder_text = "Enter name..."
+
+[node name="AddButton" type="Button" parent="Panel/NewPlayerContainer"]
+text = "Add"
+
+[node name="StartButton" type="Button" parent="."]
+offset_left = 120.0
+offset_top = 740.0
+offset_right = 420.0
+offset_bottom = 820.0
+theme_override_font_sizes/font_size = 36
+text = "Select a player"

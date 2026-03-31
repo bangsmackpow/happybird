@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://cpipe1234567"]
+
+[ext_resource type="Script" path="res://scripts/pipe.gd" id="1_pipe"]
+
+[node name="Pipe" type="Area2D"]
+collision_layer = 1
+collision_mask = 2
+script = ExtResource("1_pipe")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_pipe")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pipe"]
+size = Vector2(80, 2000)
