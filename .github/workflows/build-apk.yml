@@ -25,11 +25,19 @@ jobs:
         uses: android-actions/setup-android@v3
         with:
           packages: platforms;android-34 build-tools;34.0.0 cmdline-tools;latest
+          accept-android-sdk-licenses: true
+
+      - name: Accept Android SDK Licenses
+        run: |
+          yes | sdkmanager --licenses || true
+          mkdir -p $ANDROID_HOME/licenses
+          echo -e "\n8933bad161af4178b1185d1a37fbf41ea5269c55" > $ANDROID_HOME/licenses/android-sdk-license
+          echo -e "\nd56f5187479451eabf01fb78af6dfcb131a6481e" >> $ANDROID_HOME/licenses/android-sdk-license
+          echo -e "\n24333f8a63b6825ea9c5514f83c2829b004d1fee" >> $ANDROID_HOME/licenses/android-sdk-license
 
       - name: Install Android Build Template
         run: |
           mkdir -p android/build
-          cp -r /opt/android-sdk/cmdline-tools android/ 2>/dev/null || true
           echo "sdk.dir=$ANDROID_HOME" > android/build/local.properties
 
       - name: Download Godot Export Templates
