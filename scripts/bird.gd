@@ -37,7 +37,7 @@ func _physics_process(delta):
 
 func _draw():
 	draw_circle(Vector2.ZERO, BIRD_RADIUS, BIRD_COLOR)
-	draw_circle(Vector2.ZERO, BIRD_RADIUS, BIRD_COLOR, false, 2, true)
+	draw_circle(Vector2.ZERO, BIRD_RADIUS, BIRD_COLOR)
 
 	draw_circle(Vector2(8, -6), 6, BIRD_EYE)
 	draw_circle(Vector2(10, -6), 3, BIRD_PUPIL)
